@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+    <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title> ZDR </title>
+
+    </head>
+
+
+    <body>
+        
+        тест за jquery
+        <br>
+        <h1>F12 to see the API</h1>        
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+        $.get("https://api.coinmarketcap.com/v2/ticker/", function(data, status){
+        for(var key in data.data){
+            var coin = data.data[key];
+            if(coin.name == "Ethereum" || coin.name == "Bitcoin")
+                console.log("Coin: ",coin.name," Price: ", coin.quotes.USD.price, "$");
+        }
+        });
+        </script>
+
+
+    </body>
+
+</html>
