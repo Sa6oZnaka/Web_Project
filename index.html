@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title> ZDR </title>
+        <title>Ethereum</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     </head>
 
@@ -14,17 +16,35 @@
         <br>
         <h1>F12 to see the API</h1>        
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <p><b>Test</b> Paragraph.</p>
+		<p></p>
 
         <script type="text/javascript">
-        $.get("https://api.coinmarketcap.com/v2/ticker/", function(data, status){
-        for(var key in data.data){
-            var coin = data.data[key];
-            if(coin.name == "Ethereum" || coin.name == "Bitcoin")
-                console.log("Coin: ",coin.name," Price: ", coin.quotes.USD.price, "$");
-        }
-        });
+
+	        $.get("https://api.coinmarketcap.com/v2/ticker/", function(data, status){
+		        for(var key in data.data){
+		            var coin = data.data[key];
+
+		            if(coin.name == "Bitcoin"){
+		              	var Btc_price = coin.quotes.USD.price;
+		              	Btc_price = Math.floor(Btc_price*100)/100;
+			    		document.getElementById("BTC_USD").innerHTML = Btc_price;
+		            }
+		            if(coin.name == "Ethereum"){
+		  				var Eth_price = coin.quotes.USD.price;
+		  				Eth_price = Math.floor(Eth_price*100)/100;
+			    		document.getElementById("ETH_USD").innerHTML = Eth_price;
+		            }
+		        }
+        	});
+	        
         </script>
+
+        
+
+		<body onload="myFunction()">
+		<h1>Bitcoin: <span id="BTC_USD"></span>$</h1>
+		<h1>Ethereum: <span id="ETH_USD"></span>$</h1>
 
 
     </body>
