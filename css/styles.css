@@ -1,7 +1,9 @@
-
-
 body {
-	background: #555;
+
+    background-image: url("menu.svg");
+    background-repeat: no-repeat, repeat;
+    background-color: #777;
+
 	font: normal 15px Georgia, "Times New Roman", Times, serif;
 	color: #999999;
 }
