@@ -1,3 +1,41 @@
-body {background-color: powderblue;}
-h1   {color: blue;}
-p    {color: red;}
+
+
+body {
+	background: #555;
+	font: normal 15px Georgia, "Times New Roman", Times, serif;
+	color: #999999;
+}
+
+h1 {
+	color: white;
+}
+
+
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.nav li a:hover {
+  background-color: #999;
+}
+
+.nav{
+	background-color: #333;
+    border:1px solid #ccc;
+    border-width:1px 0;
+    list-style:none;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+.nav li{
+    display:inline;
+}
+.nav a{
+    display:inline-block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px 16px;
+}
