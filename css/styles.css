@@ -1,8 +1,8 @@
 body {
 
-    background-image: url("menu.svg");
+    background-image: url("../img/menu.svg");
     background-repeat: no-repeat, repeat;
-    background-color: #777;
+    background-color: #000000;
 
 	font: normal 15px Georgia, "Times New Roman", Times, serif;
 	color: #999999;
@@ -12,6 +12,10 @@ h1 {
 	color: white;
 }
 
+img {
+  width: 100%;
+  height: 200px;
+}
 
 .active {
   background-color: #4CAF50;
@@ -24,7 +28,6 @@ h1 {
 
 .nav{
 	background-color: #333;
-    border:1px solid #ccc;
     border-width:1px 0;
     list-style:none;
     margin:0;
@@ -47,4 +50,29 @@ h1 {
     padding: 0;
     width: 1000px; 
     height: 600px; 
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.hero-image {
+  background-image: url("../img/logo.png"); /* The image used */
+
+  background-color: #000000; /* Used if the image is unavailable */
+  height: 200px; /* You must set a specified height */
+  
+  background-repeat: no-repeat; /* Do not repeat the image */
+
 }

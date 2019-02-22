@@ -40,6 +40,8 @@ function update() {
         Transparancy = Transparancy + Transparancy*0.02 + 0.2;
     }
     
+    // https://thumbs.gfycat.com/SeveralBelatedEarthworm-size_restricted.gif
+    
     setTimeout(update, 10);
 }
 function draw() {
