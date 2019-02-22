@@ -6,6 +6,7 @@
         <title>Ethereum</title>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="js/api.js"></script>
         <link rel="stylesheet" href="css/styles.css">
 
     </head>
@@ -13,19 +14,14 @@
 
     <body>
         
-
-       
-        
-        <div class="hero-image">
-          <div class="hero-text">
+        <div class="top-image">
+          <div class="top-text">
             <h1 style="font-size:20px">Ethereum</h1>
-            <h3>СВОБОДНАТА ПАРА..</h3>
+            <h3>СВОБОДНАТА ПАРА..  </h3>
             
           </div>
         </div>
 
-            
-        
     	<ul class="nav">
 		  <li><a class="active" href="index.html">Home</a></li>
 		  <li><a href="about.html">About</a></li>
@@ -33,32 +29,10 @@
 		  <li><a href="contact.html">Contact</a></li>
 		</ul>
 
-
         <p>
         тест за jquery
         </p>
-    
-        <script type="text/javascript">
-
-	        $.get("https://api.coinmarketcap.com/v2/ticker/", function(data, status){
-		        for(var key in data.data){
-		            var coin = data.data[key];
-
-		            if(coin.name == "Bitcoin"){
-		              	var Btc_price = coin.quotes.USD.price;
-		              	Btc_price = Math.floor(Btc_price*100)/100;
-			    		document.getElementById("BTC_USD").innerHTML = Btc_price;
-		            }
-		            if(coin.name == "Ethereum"){
-		  				var Eth_price = coin.quotes.USD.price;
-		  				Eth_price = Math.floor(Eth_price*100)/100;
-			    		document.getElementById("ETH_USD").innerHTML = Eth_price;
-		            }
-		        }
-        	});
-	        
-        </script>
-
+         
 		<h1>Bitcoin: <span id="BTC_USD"></span>$</h1>
 		<h1>Ethereum: <span id="ETH_USD"></span>$</h1>
 

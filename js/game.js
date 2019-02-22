@@ -64,8 +64,8 @@ function draw() {
         //context.fillStyle = "#00FFF0";
         //context.fillRect(0,0,1000,700);
 
-        context.fillStyle = "#000";
-        context.font = "20px Arial";
+        context.fillStyle = "#ffffff";
+        context.font = "20px Times New Roman";
         context.fillText("Hello world There will be credits here!", 10, 20);
     }
 
