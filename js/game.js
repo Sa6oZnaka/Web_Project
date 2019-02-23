@@ -23,6 +23,7 @@ var GravityPower = 0;
 
 var arr=[];
 var ObjectsSpeed = 1;
+var ObjectCount = 200;
 
 class Rectangle {
   constructor(PosX ,PosY) {
@@ -43,7 +44,7 @@ class Rectangle {
   }
 }
 
-for(var i=0;i<10;i++){
+for(var i=0;i<ObjectCount;i++){
 
     let x = i*100;
     let y = Math.floor(Math.random() * canvas.height);
@@ -106,7 +107,7 @@ function update() {
                 MyY+=GravityPower;
             }
             
-            for(var i=0;i<10;i++){
+            for(var i=0;i<ObjectCount;i++){
                 arr[i].update(ObjectsSpeed);
             }
             
@@ -133,16 +134,16 @@ function draw() {
             
             context.fillStyle = "rgb(255, 0, 0)";
             context.fillRect(MyX,MyY,10,10);
+            
+            for(var i=0;i<ObjectCount;i++){
+                context.fillStyle = "rgb(46, 74, 88)";
+                context.fillRect(arr[i].x,arr[i].y,10,100);
+            }
+            
         }
             
         
-        for(var i=0;i<10;i++){
-
-            context.fillStyle = "rgb(46, 74, 88)";
-            context.fillRect(arr[i].x,arr[i].y,10,100);
-
-
-        }
+        
         
         
     }else{
