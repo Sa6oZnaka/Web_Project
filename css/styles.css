@@ -5,11 +5,20 @@ body {
     background-color: #000000;
 
 	font: normal 15px Georgia, "Times New Roman", Times, serif;
-	color: #999999;
+	color: #818181;
 }
 
 h1 {
 	color: white;
+}
+
+h2 {
+	color: #ffffff;
+    font-weight: 900;
+}
+
+p{
+    padding: 10px 15px 1px;
 }
 
 .active {
@@ -86,3 +95,6 @@ h1 {
   padding: 25px 50px 25px 50px;
 }
 
+.warning{
+    color: #ff0000;
+}
