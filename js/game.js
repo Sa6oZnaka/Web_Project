@@ -59,9 +59,6 @@ for(var i=0;i<ObjectCount;i++){
 console.log(arr[1].area); // 100
 
 
-
-
-
 window.addEventListener("keydown", function (args) {
 
     if(args.keyCode == 32) {
