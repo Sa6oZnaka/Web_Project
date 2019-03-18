@@ -18,7 +18,10 @@ var Transparancy = 0;
 var Transcparacy_Time = 120;
 
 var SpacePressed = false;
-var MyX = 100, MyY = 50;
+var MyX = 100, 
+    MyY = 50;
+    MySize = 30;
+
 var GravityPower = 0;
 var deleted = 0;
 
@@ -27,33 +30,31 @@ var ObjectsSpeed = 1;
 var ObjectCount = 200;
 
 class Rectangle {
-  constructor(PosX ,PosY, SizeX, SizeY) {
-    this.x = PosX;
-    this.y = PosY;
-    this.SizeY = SizeY;
-    this.SizeX = SizeX;
-  }
- 
-  get area() {
-    return this.calcArea();
-  }
-
-  update(ObjectsSpeed){
-      this.x -= ObjectsSpeed;
-  }
-    
-  calcArea() {
-    return this.x * this.y;
-  }
-
-  Colision(){
-    if(MyX > this.x && MyY > this.y && MyX < this.x + this.SizeX && MyY < this.y + this.SizeY){
-        //this.SizeY = 0;
-        //this.SizeX = 0;
-        return true;
+    constructor(PosX ,PosY, SizeX, SizeY) {
+        this.x = PosX;
+        this.y = PosY;
+        this.SizeY = SizeY;
+        this.SizeX = SizeX;
     }
-    return false;
-  }
+     
+    get area() {
+        return this.calcArea();
+    }
+
+    update(ObjectsSpeed){
+        this.x -= ObjectsSpeed;
+    }
+        
+    calcArea() {
+        return this.x * this.y;
+    }
+
+    Colision(){
+        if(MyX + MySize > this.x && MyY + MySize > this.y && MyX < this.x + this.SizeX && MyY < this.y + this.SizeY){
+            return true;
+        }
+        return false;
+    }
 
 }
 
@@ -102,6 +103,7 @@ window.addEventListener("mousemove", function (args) {
 function update() {
     
     if(Activated){
+
         if(Transparancy<Transcparacy_Time){
             Transparancy = Transparancy + Transparancy*0.02 + 0.2;
         }else{
@@ -110,7 +112,10 @@ function update() {
                 MyY-=GravityPower;  
                 
             }else{
-                MyY+=GravityPower;
+                if(MyY < canvas.height - MySize){
+                    MyY+=GravityPower;
+                    if(MyY + MySize > canvas.width) MyY = canvas.width - MySize; 
+                }
             }
             
             for(var i=0;i<ObjectCount - deleted;i++){
@@ -144,7 +149,7 @@ function draw() {
             context.fillRect(0,0,canvas.width,canvas.height);
             
             context.fillStyle = "rgb(255, 0, 0)";
-            context.fillRect(MyX,MyY,10,10);
+            context.fillRect(MyX,MyY,MySize,MySize);
             
             for(var i=0;i<ObjectCount - deleted;i++){
                 context.fillStyle = "rgb(46, 74, 88)";
