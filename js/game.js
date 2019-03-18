@@ -20,15 +20,18 @@ var Transcparacy_Time = 120;
 var SpacePressed = false;
 var MyX = 100, MyY = 50;
 var GravityPower = 0;
+var deleted = 0;
 
 var arr=[];
 var ObjectsSpeed = 1;
 var ObjectCount = 200;
 
 class Rectangle {
-  constructor(PosX ,PosY) {
+  constructor(PosX ,PosY, SizeX, SizeY) {
     this.x = PosX;
     this.y = PosY;
+    this.SizeY = SizeY;
+    this.SizeX = SizeX;
   }
  
   get area() {
@@ -42,22 +45,28 @@ class Rectangle {
   calcArea() {
     return this.x * this.y;
   }
+
+  Colision(){
+    if(MyX > this.x && MyY > this.y && MyX < this.x + this.SizeX && MyY < this.y + this.SizeY){
+        //this.SizeY = 0;
+        //this.SizeX = 0;
+        return true;
+    }
+    return false;
+  }
+
 }
 
-for(var i=0;i<ObjectCount;i++){
+for(var i=0;i<ObjectCount - deleted;i++){
 
     let x = i*100;
     let y = Math.floor(Math.random() * canvas.height);
     
-    var square = new Rectangle(x, y);
+    var square = new Rectangle(x, y, 10, 100);
 
     arr[i] = square;
     
 }
-    
-    
-console.log(arr[1].area); // 100
-
 
 window.addEventListener("keydown", function (args) {
 
@@ -104,8 +113,13 @@ function update() {
                 MyY+=GravityPower;
             }
             
-            for(var i=0;i<ObjectCount;i++){
+            for(var i=0;i<ObjectCount - deleted;i++){
                 arr[i].update(ObjectsSpeed);
+                if( arr[i].Colision() ){
+                    arr.splice(i , 1);
+                    deleted ++;
+                    console.log("detetced!!!");
+                }
             }
             
             
@@ -132,16 +146,12 @@ function draw() {
             context.fillStyle = "rgb(255, 0, 0)";
             context.fillRect(MyX,MyY,10,10);
             
-            for(var i=0;i<ObjectCount;i++){
+            for(var i=0;i<ObjectCount - deleted;i++){
                 context.fillStyle = "rgb(46, 74, 88)";
-                context.fillRect(arr[i].x,arr[i].y,10,100);
+                context.fillRect(arr[i].x,arr[i].y,arr[i].SizeX,arr[i].SizeY);
             }
             
         }
-            
-        
-        
-        
         
     }else{
         //context.fillStyle = "#00FFF0";
