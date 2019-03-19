@@ -26,8 +26,12 @@ var GravityPower = 0;
 var deleted = 0;
 
 var arr=[];
-var ObjectsSpeed = 1;
-var ObjectCount = 200;
+var InitalObjectsSpeed = 1;
+var ObjectsSpeed = InitalObjectsSpeed;
+var ObjectCount = 500;
+
+var Score = 0,
+    MaxScore = Score;
 
 class Rectangle {
     constructor(PosX ,PosY, SizeX, SizeY) {
@@ -58,7 +62,7 @@ class Rectangle {
 
 }
 
-for(var i=0;i<ObjectCount - deleted;i++){
+for(var i=0;i < ObjectCount - deleted;i++){
 
     let x = i*100;
     let y = Math.floor(Math.random() * canvas.height);
@@ -107,10 +111,19 @@ function update() {
         if(Transparancy<Transcparacy_Time){
             Transparancy = Transparancy + Transparancy*0.02 + 0.2;
         }else{
-            GravityPower+=0.1;
+            Score+=ObjectsSpeed / 40;
+            GravityPower+=ObjectsSpeed / 10;
+            ObjectsSpeed+=0.001;
+
+            if(MaxScore < Score){
+                MaxScore = Score;
+            }
+
             if(SpacePressed){
-                MyY-=GravityPower;  
-                
+                if(MyY > 0){
+                    MyY-=GravityPower;
+                    if(MyY < 0) MyY = 0; 
+                }  
             }else{
                 if(MyY < canvas.height - MySize){
                     MyY+=GravityPower;
@@ -123,6 +136,8 @@ function update() {
                 if( arr[i].Colision() ){
                     arr.splice(i , 1);
                     deleted ++;
+                    Score = 0;
+                    ObjectsSpeed = InitalObjectsSpeed;
                     console.log("detetced!!!");
                 }
             }
@@ -155,12 +170,14 @@ function draw() {
                 context.fillStyle = "rgb(46, 74, 88)";
                 context.fillRect(arr[i].x,arr[i].y,arr[i].SizeX,arr[i].SizeY);
             }
+
+            context.fillStyle = "#ffff00";
+            context.font = "20px Times New Roman";
+            context.fillText("Score: " + Math.floor(Score) + "  Max Score: " + Math.floor(MaxScore), 10, 20);
             
         }
         
     }else{
-        //context.fillStyle = "#00FFF0";
-        //context.fillRect(0,0,1000,700);
 
         context.fillStyle = "#ffffff";
         context.font = "20px Times New Roman";
