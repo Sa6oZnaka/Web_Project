@@ -27,12 +27,21 @@ function draw() {
 
   	background(0);
 	
-	fill(200);
-  	textSize(16);
-	text("Bitcoin: " + Btc_price + "$", x1, 15);
-	fill(200);
-	text("Ethereum: " + Eth_price + "$", x2, 15);
+	textSize(16);
+	if(Btc_change > 0){
+		fill(0, 205, 0);
+	}else{
+		fill(205, 0, 0);
+	}
+	text("Bitcoin: " + Btc_price + "$ (" + Btc_change + "%)", x1, 15);
 	
+	if(Eth_change > 0){
+		fill(0, 255, 0);
+	}else{
+		fill(255, 0, 0);
+	}
+	text("Ethereum: " + Eth_price + "$ (" + Eth_change + "%)", x2, 15);
+
 	x1 += speed;
 	x2 += speed;
 
