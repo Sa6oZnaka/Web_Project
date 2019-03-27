@@ -140,9 +140,7 @@ function update() {
                     ObjectsSpeed = InitalObjectsSpeed;
                     console.log("detetced!!!");
                 }
-            }
-            
-            
+            } 
         }
     }
     

@@ -23,7 +23,7 @@ h2 {
 }
 
 p{
-    padding: 15px;
+    padding-left: 10px;
 }
 
 .active {
@@ -99,9 +99,18 @@ p{
 }
 
 .padding {
-  padding: 25px;
+    padding: 25px;
 }
 
 .warning{
     color: #ff0000;
+}
+
+.Image1{
+    height: 55%;
+    width: 55%;
+}
+
+a {
+  color: gray;
 }
