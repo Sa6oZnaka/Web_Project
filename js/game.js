@@ -15,7 +15,7 @@ var context = canvas.getContext("2d");
 var Activated = false;
 
 var Transparancy = 0;
-var Transcparacy_Time = 120;
+var Transcparacy_Time = 300;
 
 var SpacePressed = false;
 var MyX = 100, 
@@ -32,6 +32,12 @@ var ObjectCount = 0;
 
 var Score = 0,
     MaxScore = Score;
+
+var background = new Image();
+background.src = "./img/game_1.jpg";
+
+var background_1 = 0,
+    background_2 = canvas.width;
 
 class Rectangle {
     constructor(PosX ,PosY, SizeX, SizeY) {
@@ -69,7 +75,7 @@ function generate(n){
         if(arr.length > 1){
             x = arr[arr.length-1].get_x() + 100;
         }else{
-            x = 0;
+            x = canvas.width + 10;
         }
         
         var square = new Rectangle(x, y, 10, 100);
@@ -113,8 +119,21 @@ function update() {
     if(Activated){
 
         if(Transparancy<Transcparacy_Time){
-            Transparancy = Transparancy + Transparancy*0.02 + 0.2;
+            Transparancy = Transparancy + Transparancy*0.03 + 0.5;
         }else{
+
+            // background
+            background_1 -= ObjectsSpeed; 
+            background_2 -= ObjectsSpeed;
+            if(background_1 <= -canvas.width) background_1 = canvas.width;
+            if(background_2 <= -canvas.width) background_2 = canvas.width;
+            // fix the gaps
+            if(background_1 < background_2){
+                background_2 = background_1 + canvas.width;
+            }else{
+                background_1 = background_2 + canvas.width;
+            }
+
             Score+=ObjectsSpeed / 40;
             GravityPower+=ObjectsSpeed / 10;
             ObjectsSpeed+=0.001;
@@ -146,7 +165,7 @@ function update() {
                 }
 
                 if(arr[i].get_x() < -arr[i].get_size_x() ){
-                    console.log(ObjectCount - deleted);
+                    //console.log(ObjectCount - deleted);
                     arr.splice(i , 1);
                     deleted ++;
                     generate(1);
@@ -162,25 +181,29 @@ function draw() {
     context.globalAlpha = 1;
 
     if(Activated){
-        
+
         if(Transparancy < Transcparacy_Time){
             for(var i=0;i<Transparancy;i++){
                 context.fillStyle = "rgba(255, 255, 255, 0.01)";
                 context.fillRect(0,0,canvas.width,canvas.height);
             }
         }else{
-            context.fillStyle = "rgb(255, 255, 255)";
-            context.fillRect(0,0,canvas.width,canvas.height);
-            
-            context.fillStyle = "rgb(255, 0, 0)";
+
+            context.drawImage(background, background_2, 0, canvas.width, canvas.height);
+            context.drawImage(background, background_1, 0, canvas.width, canvas.height);
+
+            context.fillStyle = "rgba(0, 0, 0, 0.5)";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            context.fillStyle = "#009900";
             context.fillRect(MyX,MyY,MySize,MySize);
             
             for(var i=0;i<ObjectCount - deleted;i++){
-                context.fillStyle = "rgb(46, 74, 88)";
+                context.fillStyle = "#990000";
                 context.fillRect(arr[i].x,arr[i].y,arr[i].SizeX,arr[i].SizeY);
             }
 
-            context.fillStyle = "#ffff00";
+            context.fillStyle = "#fff";
             context.font = "20px Times New Roman";
             context.fillText("Score: " + Math.floor(Score) + "  Max Score: " + Math.floor(MaxScore), 10, 20);
         }
@@ -189,7 +212,27 @@ function draw() {
 
         context.fillStyle = "#ffffff";
         context.font = "20px Times New Roman";
-        context.fillText("Hello world There will be credits here!", 10, 20);
+        context.fillText("Website for Etehreum!", 10, 20);
+
+        context.fillStyle = "#ffffff";
+        context.font = "20px Times New Roman";
+        context.fillText("Used technologies:", 30, 50);
+
+        context.fillStyle = "#ffffff";
+        context.font = "20px Times New Roman";
+        context.fillText("- HTML -- Website", 60, 80);
+
+        context.fillStyle = "#ffffff";
+        context.font = "20px Times New Roman";
+        context.fillText("- CSS -- Design", 60, 100);
+
+        context.fillStyle = "#ffffff";
+        context.font = "20px Times New Roman";
+        context.fillText("- P5 JS -- Marquee", 60, 120);
+
+        context.fillStyle = "#00ff00";
+        context.font = "20px Times New Roman";
+        context.fillText("- JavaScript -- This Press SPACE to see", 60, 140);
     }
 
     requestAnimationFrame(draw);
