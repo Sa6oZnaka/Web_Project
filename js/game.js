@@ -28,7 +28,7 @@ var deleted = 0;
 var arr=[];
 var InitalObjectsSpeed = 1;
 var ObjectsSpeed = InitalObjectsSpeed;
-var ObjectCount = 500;
+var ObjectCount = 0;
 
 var Score = 0,
     MaxScore = Score;
@@ -40,17 +40,9 @@ class Rectangle {
         this.SizeY = SizeY;
         this.SizeX = SizeX;
     }
-     
-    get area() {
-        return this.calcArea();
-    }
 
     update(ObjectsSpeed){
         this.x -= ObjectsSpeed;
-    }
-        
-    calcArea() {
-        return this.x * this.y;
     }
 
     Colision(){
@@ -60,18 +52,35 @@ class Rectangle {
         return false;
     }
 
+    get_x () {
+        return this.x;
+    }
+    get_size_x () {
+        return this.SizeX;
+    }
+
+};
+
+function generate(n){
+    for(var i = 0;i < n;i ++){
+        let x;
+        let y = Math.floor(Math.random() * (canvas.height - 100) );
+
+        if(arr.length > 1){
+            x = arr[arr.length-1].get_x() + 100;
+        }else{
+            x = 0;
+        }
+        
+        var square = new Rectangle(x, y, 10, 100);
+
+        arr[arr.length] = square;
+        ObjectCount++;
+    }
+   
 }
 
-for(var i=0;i < ObjectCount - deleted;i++){
-
-    let x = i*100;
-    let y = Math.floor(Math.random() * canvas.height);
-    
-    var square = new Rectangle(x, y, 10, 100);
-
-    arr[i] = square;
-    
-}
+generate(10);
 
 window.addEventListener("keydown", function (args) {
 
@@ -86,7 +95,6 @@ window.addEventListener("keydown", function (args) {
         }
     }
     
-    
 }, false);
 
 window.addEventListener("keyup", function (args) {
@@ -100,12 +108,8 @@ window.addEventListener("keyup", function (args) {
     
 }, false);
 
-window.addEventListener("mousemove", function (args) {
-
-}, false);
-
 function update() {
-    
+
     if(Activated){
 
         if(Transparancy<Transcparacy_Time){
@@ -127,7 +131,7 @@ function update() {
             }else{
                 if(MyY < canvas.height - MySize){
                     MyY+=GravityPower;
-                    if(MyY + MySize > canvas.width) MyY = canvas.width - MySize; 
+                    if(MyY + MySize > canvas.height) MyY = canvas.height - MySize; 
                 }
             }
             
@@ -136,9 +140,16 @@ function update() {
                 if( arr[i].Colision() ){
                     arr.splice(i , 1);
                     deleted ++;
+                    generate(1);
                     Score = 0;
                     ObjectsSpeed = InitalObjectsSpeed;
-                    console.log("detetced!!!");
+                }
+
+                if(arr[i].get_x() < -arr[i].get_size_x() ){
+                    console.log(ObjectCount - deleted);
+                    arr.splice(i , 1);
+                    deleted ++;
+                    generate(1);
                 }
             } 
         }
@@ -172,7 +183,6 @@ function draw() {
             context.fillStyle = "#ffff00";
             context.font = "20px Times New Roman";
             context.fillText("Score: " + Math.floor(Score) + "  Max Score: " + Math.floor(MaxScore), 10, 20);
-            
         }
         
     }else{
@@ -181,8 +191,6 @@ function draw() {
         context.font = "20px Times New Roman";
         context.fillText("Hello world There will be credits here!", 10, 20);
     }
-
-    
 
     requestAnimationFrame(draw);
 }
