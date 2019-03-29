@@ -9,8 +9,6 @@ function setup() {
   	canvas = createCanvas(window.innerWidth, 20);
  	canvas.position(0,0);
 
- 	console.log(width);
-
  	x1 = 0;
  	x2 = innerWidth / 2;
 }
@@ -46,7 +44,6 @@ function draw() {
 	x2 += speed;
 
 	if(x1 > width) x1 = 0;
-	
 	if(x2 > width) x2 = 0;
 	
 }

@@ -125,23 +125,20 @@ function update() {
             // background
             background_1 -= ObjectsSpeed; 
             background_2 -= ObjectsSpeed;
-            if(background_1 <= -canvas.width) background_1 = canvas.width;
-            if(background_2 <= -canvas.width) background_2 = canvas.width;
-            // fix the gaps
-            if(background_1 < background_2){
-                background_2 = background_1 + canvas.width;
-            }else{
-                background_1 = background_2 + canvas.width;
-            }
+            if(background_1 < -canvas.width) background_1 = background_2 + canvas.width;
+            if(background_2 < -canvas.width) background_2 = background_1 + canvas.width;
 
+            // update object speed, score
             Score+=ObjectsSpeed / 40;
             GravityPower+=ObjectsSpeed / 10;
             ObjectsSpeed+=0.001;
 
+            // max score
             if(MaxScore < Score){
                 MaxScore = Score;
             }
 
+            // player movement
             if(SpacePressed){
                 if(MyY > 0){
                     MyY-=GravityPower;
@@ -156,6 +153,7 @@ function update() {
             
             for(var i=0;i<ObjectCount - deleted;i++){
                 arr[i].update(ObjectsSpeed);
+                // check for collison
                 if( arr[i].Colision() ){
                     arr.splice(i , 1);
                     deleted ++;
@@ -163,9 +161,8 @@ function update() {
                     Score = 0;
                     ObjectsSpeed = InitalObjectsSpeed;
                 }
-
+                // remove passed object and create new one
                 if(arr[i].get_x() < -arr[i].get_size_x() ){
-                    //console.log(ObjectCount - deleted);
                     arr.splice(i , 1);
                     deleted ++;
                     generate(1);
